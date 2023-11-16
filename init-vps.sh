@@ -23,6 +23,7 @@ sudo pacman -Syyu
 
 # Install needed packages
 sudo pacman -S git pacman-contrib zip syncthing python-pip rsync reflector nginx mariadb cockpit
+sudo pacman -S iptables
 
 # Install yay
 git clone https://aur.archlinux.org/yay-bin.git
@@ -34,24 +35,21 @@ sudo rm -rf ./yay-bin
 # Install needed AUR packages
 yay -S plex-media-server
 
-sudo systemctl enable --now nginx
-sudo systemctl enable --now mariadb
-sudo systemctl enable --now plexmediaserver
-sudo systemctl enable --now syncthing.service 
-sudo systemctl enable --now cockpit.socket 
 # Clean pacman & yay caches
 sudo paccache -rk0
 sudo rm -rf ~/.cache/yay/*
 
-exit 
+curl -LJO https://raw.githubusercontent.com/angristan/openvpn-install/master/openvpn-install.sh
+chmod +X openvpn-install.sh
+sudo ./openvpn-install.sh
 
-#########################################################
-#                          USER                         #
-#########################################################
- 
-# Switch to user for operations that need to be done as non-sudo user
- 
-systemctl enable --now syncthing.service --user
+sudo systemctl enable --now nginx
+sudo systemctl enable --now mariadb
+sudo systemctl enable --now plexmediaserver
+sudo systemctl enable --now syncthing@admin.service 
+sudo systemctl enable --now cockpit.socket 
+
+exit 
 
 #########################################################
 #                          UTIL                         #
