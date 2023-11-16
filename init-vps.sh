@@ -22,7 +22,7 @@ exit
 sudo pacman -Syyu
 
 # Install needed packages
-sudo pacman -S git pacman-contrib zip syncthing python-pip rsync reflector nginx mariadb
+sudo pacman -S git pacman-contrib zip syncthing python-pip rsync reflector nginx mariadb cockpit
 
 # Install yay
 git clone https://aur.archlinux.org/yay-bin.git
@@ -37,7 +37,8 @@ yay -S plex-media-server
 sudo systemctl enable --now nginx
 sudo systemctl enable --now mariadb
 sudo systemctl enable --now plexmediaserver
-
+sudo systemctl enable --now syncthing.service 
+sudo systemctl enable --now cockpit.socket 
 # Clean pacman & yay caches
 sudo paccache -rk0
 sudo rm -rf ~/.cache/yay/*
